@@ -1,26 +1,44 @@
 package processes;
 
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class that handles logic related to storing users' tasks in a file on their local machine
+ */
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 public class Storage {
     private String dirPath;
     private String filePath;
 
-    public Storage(String dirPath, String filePath) {
+    /**
+     * Constructor for Storage object.
+     * Stores the directory and file paths of where the data should be stored.
+     *
+     * @param dirPath The directory path that the file containing the saved user inputs should be in
+     * @param filePath The path to the file where user inputs are saved.
+     */
+    public Storage (String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
     }
 
-    public void loadData(ArrayList<Task> taskList) {
+    /**
+     * Does not return anything. Takes in a tasklist.
+     * Goes to the dirPath and filePath locations to retrieve user info.
+     * If the file or directory did not previously exist, create them.
+     * If file or directory cannot be created, print reason onto the terminal
+     *
+     * @param taskList The location at which user info is stored for use in the programme
+     */
+    public void loadData (ArrayList<Task> taskList) {
         try {
             File dir = new File(dirPath);
             if (!dir.exists()) {
@@ -32,7 +50,7 @@ public class Storage {
                 }
             }
 
-            File file = new File(filePath);
+            File file = new File (filePath);
             if (!file.exists()) {
                 boolean doesFileExists = file.createNewFile();
                 if (doesFileExists) {
@@ -71,6 +89,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Does not return anything. Saves the user input into the file path specified in the constructor.
+     *
+     * @param taskList The user input to be saved.
+     */
     public void save(ArrayList<Task> taskList) {
         try {
             FileWriter file = new FileWriter(filePath);

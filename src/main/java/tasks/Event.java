@@ -8,12 +8,24 @@ import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * Represents the Event task.
+ * A <code>Event</code> task has a name, from date, to date and a flag to show if it is done
+ */
 public class Event extends Task {
 
     protected LocalDate fromDate;
     protected LocalDate toDate;
 
+    /**
+     * Constructor for an Event task by taking in a string with the relevant information.
+     * It includes the name, from date and to date of the Event task.
+     *
+     * @param inputString The string containing information of the task
+     * @throws InvalidTaskNameException If no name is provided.
+     * @throws InvalidDateException If invalid date is provided.
+     *
+     */
     public Event (String inputString) throws InvalidTaskNameException, InvalidDateException {
 
         if (inputString.contains("/from ")) {
@@ -59,6 +71,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Another Constructor for an Event task.
+     * This constructor takes in an array of strings after they have been split.
+     *
+     * @param input The array of strings, each string contains a field of the Event task
+     */
     public Event(String[] input) {
         int isDone = parseInt(input[0]);
         if (isDone == 0) {
@@ -71,16 +89,28 @@ public class Event extends Task {
         this.toDate = LocalDate.parse(input[3].trim());
     }
 
+    /**
+     * Returns the string representation an Event task.
+     * Contains the type, name, from date and to date of the Event task, as well as whether it is done.
+     *
+     * @return string representation of the Event task.
+     */
     @Override
-    public String toString() {
+    public String toString () {
         String res = "[E]";
         res += super.toString();
         res += " (from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
         return res;
     }
 
+    /**
+     * Returns the string representation of how an Event task should be saved.
+     * Contains the type, name, from date and to date of the Event task, as well as whether it is done.
+     *
+     * @return save format of Event task.
+     */
     @Override
-    public String toSave() {
+    public String toSave () {
         String res = "E|";
         res = res.concat(this.isDone ? "1|" : "0|");
         res = res.concat(this.name);
